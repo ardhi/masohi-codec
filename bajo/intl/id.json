@@ -1,5 +1,10 @@
 {
   "unknownDecoder%s": "Decoder '%s' tidak dikenal",
   "parseError%s%s": "Kesalahan pada saat parsing pada '%s': %s",
-  "invalidChecksum%s": "Checksum tidak valid di sentence %s"
+  "invalidChecksum%s": "Checksum tidak valid di sentence %s",
+  "invalidType%s": "Tipe tidak valid '%s'",
+  "aisType%s": "tipe AIS %s",
+  "incomplete": "Kalimat tidak lengkap",
+  "sequence": "urutan",
+  "priorMsg": "pesan sebelumnya"
 }

@@ -2,5 +2,9 @@
   "unknownDecoder%s": "Unknown decoder '%s'",
   "parseError%s%s": "Error while parsing on '%s': %s",
   "invalidChecksum%s": "Invalid checksum in sentence %s",
-  "invalidType%s": "Invalid type '%s'"
+  "invalidType%s": "Invalid type '%s'",
+  "aisType%s": "AIS type %s",
+  "incomplete": "Sentence incomplete",
+  "sequence": "sequence",
+  "priorMsg": "prior message"
 }
