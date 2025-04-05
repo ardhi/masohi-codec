@@ -11,9 +11,10 @@ async function factory (pkgName) {
       this.decoders = []
     }
 
-    decode = async (type, { payload, source, checksum = false } = {}) => {
+    decode = async (type, params = {}) => {
       const { importModule } = this.app.bajo
       const { find } = this.lib._
+      const { source } = {}
       let decoder = find(this.decoders, { type, source })
       if (!decoder) {
         decoder = { type, source }
@@ -22,7 +23,7 @@ async function factory (pkgName) {
         decoder.instance = new Mod(this)
         this.decoders.push(decoder)
       }
-      await decoder.instance.parse({ payload, source, checksum })
+      await decoder.instance.parse(params)
     }
 
     isValidChecksum = (sentence) => {
@@ -54,6 +55,34 @@ async function factory (pkgName) {
       const hour = padStart((rec.etaHour || 0) + '', 2, 0)
       const min = padStart((rec.etaMinute || 0) + '', 2, 0)
       return `${month}-${day} ${hour}:${min}`
+    }
+
+    mergeStationData = async (params = {}) => {
+      const { payload, source } = params
+      const { merge, get } = this.lib._
+      const { breakNsPath, importPkg, getMethod } = this.app.bajo
+      const geolib = await importPkg('bajoSpatial:geolib')
+      const { ns } = breakNsPath(source)
+      const fnName = get(this, `app.${ns}.config.getStationData`, `${ns}:getStationData`)
+      const fn = getMethod(fnName, false)
+      if (!fn) return
+      const station = fn(params)
+      if (!station) return
+      const item = {
+        stationId: station.id,
+        feed: station.feedType
+      }
+      if (station.lat && station.lng && payload.lat && payload.lng) {
+        item.stationDistance = this.fixFloat(geolib.getDistance(
+          { longitude: station.lng, latitude: station.lat },
+          { longitude: payload.lng, latitude: payload.lat }
+        ) / 1000, null, 2)
+        item.stationBearing = this.fixFloat(geolib.getRhumbLineBearing(
+          { longitude: station.lng, latitude: station.lat },
+          { longitude: payload.lng, latitude: payload.lat }
+        ), null, 2)
+      }
+      params.payload = merge(payload, item, station.dataMerge ?? {})
     }
   }
 }
