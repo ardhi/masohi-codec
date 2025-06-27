@@ -1,6 +1,6 @@
 {
   "name": "masohi-codec",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Codecs for Masohi Messaging",
   "main": "index.js",
   "scripts": {
@@ -23,8 +23,5 @@
   "bugs": {
     "url": "https://github.com/ardhi/masohi-codec/issues"
   },
-  "homepage": "https://github.com/ardhi/masohi-codec#readme",
-  "dependencies": {
-    "masohi-aisparser": "^0.0.2"
-  }
+  "homepage": "https://github.com/ardhi/masohi-codec#readme"
 }

@@ -12,15 +12,14 @@ async function factory (pkgName) {
     }
 
     decode = async (type, params = {}) => {
-      const { importModule } = this.app.bajo
-      const { find } = this.lib._
+      const { find, camelCase } = this.lib._
       const { source } = {}
       let decoder = find(this.decoders, { type, source })
       if (!decoder) {
         decoder = { type, source }
-        const Mod = await importModule(`masohiCodec:/lib/decoder/${type}.js`)
-        if (!Mod) this.error('unknownDecoder%s', type)
-        decoder.instance = new Mod(this)
+        const plugin = camelCase('masohi codec ' + type)
+        if (!this.app[plugin]) this.error('unknownDecoder%s', type)
+        decoder.instance = this.app[plugin].createDecoder()
         this.decoders.push(decoder)
       }
       await decoder.instance.parse(params)
