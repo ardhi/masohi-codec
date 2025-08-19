@@ -1,4 +1,5 @@
 {
+  "masohiCodec": "Codec",
   "unknownDecoder%s": "Decoder '%s' tidak dikenal",
   "parseError%s%s": "Kesalahan pada saat parsing pada '%s': %s",
   "invalidChecksum%s": "Checksum tidak valid di sentence %s",
