@@ -1,11 +1,12 @@
 async function factory (pkgName) {
   const me = this
 
-  return class MasohiCodec extends this.lib.Plugin {
+  class MasohiCodec extends this.lib.Plugin {
+    static alias = 'codec'
+    static dependencies = ['masohi']
+
     constructor () {
       super(pkgName, me.app)
-      this.alias = 'codec'
-      this.dependencies = ['masohi']
       this.config = {
       }
       this.decoders = []
@@ -84,6 +85,8 @@ async function factory (pkgName) {
       params.payload = merge(payload, item, station.dataMerge ?? {})
     }
   }
+
+  return MasohiCodec
 }
 
 export default factory
