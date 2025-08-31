@@ -1,7 +1,7 @@
 async function factory (pkgName) {
   const me = this
 
-  class MasohiCodec extends this.lib.Plugin {
+  class MasohiCodec extends this.app.pluginClass.base {
     static alias = 'codec'
     static dependencies = ['masohi']
 
@@ -13,7 +13,7 @@ async function factory (pkgName) {
     }
 
     decode = async (type, params = {}) => {
-      const { find, camelCase } = this.lib._
+      const { find, camelCase } = this.app.lib._
       const { source } = {}
       let decoder = find(this.decoders, { type, source })
       if (!decoder) {
@@ -49,7 +49,7 @@ async function factory (pkgName) {
     }
 
     getEta = (val, rec) => {
-      const { padStart } = this.lib._
+      const { padStart } = this.app.lib._
       const month = padStart((rec.etaMonth || 0) + '', 2, 0)
       const day = padStart((rec.etaDay || 0) + '', 2, 0)
       const hour = padStart((rec.etaHour || 0) + '', 2, 0)
@@ -59,7 +59,7 @@ async function factory (pkgName) {
 
     mergeStationData = async (params = {}) => {
       const { payload, source } = params
-      const { merge, get } = this.lib._
+      const { merge, get } = this.app.lib._
       const { breakNsPath, importPkg, getMethod } = this.app.bajo
       const geolib = await importPkg('bajoSpatial:geolib')
       const { ns } = breakNsPath(source)
