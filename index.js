@@ -1,6 +1,17 @@
+/**
+ * Plugin factory
+ *
+ * @param {string} pkgName - NPM package name
+ * @returns {class}
+ */
 async function factory (pkgName) {
   const me = this
 
+  /**
+   * MasohiCodec class
+   *
+   * @class
+   */
   class MasohiCodec extends this.app.pluginClass.base {
     static alias = 'codec'
     static dependencies = ['masohi']
