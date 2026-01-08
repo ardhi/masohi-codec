@@ -1,6 +1,6 @@
 {
   "name": "masohi-codec",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Codecs for Masohi Messaging",
   "main": "index.js",
   "scripts": {
